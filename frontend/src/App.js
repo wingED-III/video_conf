@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
+import { Button } from '@material-ui/core';
 // import Peer from "simple-peer"
 import io from "socket.io-client"
 
@@ -27,18 +28,26 @@ function App() {
 
   return (
     <div className="container">
-      <p>test</p>
+      <p>test ja</p>
       <div className="video-container">
-        <div className="video">
+       {/*  <div className="video">
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "300px"}}/>}
         </div>
-      {/*  <div className="video">
+       <div className="video">
          {callAccepted && !callEnded ?
             <video playsInline ref={userVideo} autoPlay style={{width:"300px"}}/>:
         null} 
         </div> 
          */}
       </div> 
+      <div className="room">
+        <Button variant="contained" color="primary">
+          Join Room
+        </Button>
+        <Button variant="contained" color="primary">
+          Create Room
+        </Button>
+        </div>
     </div>
   );
 }
