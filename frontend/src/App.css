@@ -42,6 +42,13 @@ button.muteVideo:active{
   background-repeat: no-repeat;
 }*/
 
+.logo{
+    margin-top: 30px;
+    max-width: 330px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 .form {
     border-radius: 7px;
     max-width: 330px;
@@ -50,7 +57,6 @@ button.muteVideo:active{
     flex-direction: column;
     background: #DDD5D5;
     padding: 20px;
-    margin-top: 30px;
   }
   
   .form .form__custom-button {
