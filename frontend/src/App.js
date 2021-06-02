@@ -95,7 +95,25 @@ function App() {
           Create Room
         </Button>
         </CopyToClipboard>
-        </div>
+        <form className="form">
+          {/*<CustomizedInput
+            label="Name"
+            id="name"
+            handleChange={this.handleChange}
+          />
+          <CustomizedInput
+            label="Room ID"
+            id="roomid"
+            handleChange={this.handleChange}
+          />*/}
+          <Button type="button" className="form__custom-button" >
+            Join Room
+          </Button>
+          <Button type="button" className="form__custom-button">
+            Create Room
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }
