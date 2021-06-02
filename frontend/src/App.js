@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 // import Peer from "simple-peer"
 import io from "socket.io-client"
 
@@ -11,6 +11,7 @@ function App() {
   const userVideo = useRef()
   const connectionRef = useRef()
   const [ stream, setStream ] = useState()
+  const [ idToCall, setIdToCall ] = useState("")
 /*
   useEffect(()=> {
     navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
@@ -41,6 +42,13 @@ function App() {
          */}
       </div> 
       <div className="room">
+      <TextField
+					id="filled-basic"
+					label="Room ID"
+					variant="filled"
+					value={idToCall}
+					onChange={(e) => setIdToCall(e.target.value)}
+				/>
         <Button variant="contained" color="primary">
           Join Room
         </Button>
