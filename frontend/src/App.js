@@ -98,7 +98,7 @@ function App() {
           <CustomizedInput
             label="Room ID"
             id="roomid"
-            handleChange={callUser(idToCall)}
+            handleChange={(e) => setIdToCall(e.target.value)}
           />
           <Button type="button" className="form__custom-button"  onClick={() => callUser(idToCall)}>
             Join Room
