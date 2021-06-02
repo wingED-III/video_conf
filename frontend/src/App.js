@@ -5,6 +5,8 @@ import { Button, TextField } from '@material-ui/core';
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
+import CustomizedInput from "./components/CustomizedInput";
+
 const socket = io.connect('http://localhost:5000')
 function App() {
 
@@ -96,16 +98,16 @@ function App() {
         </Button>
         </CopyToClipboard>
         <form className="form">
-          {/*<CustomizedInput
+          <CustomizedInput
             label="Name"
             id="name"
-            handleChange={this.handleChange}
+            /*handleChange={this.handleChange}*/
           />
           <CustomizedInput
             label="Room ID"
             id="roomid"
-            handleChange={this.handleChange}
-          />*/}
+            /*handleChange={this.handleChange}*/
+          />
           <Button type="button" className="form__custom-button" >
             Join Room
           </Button>
