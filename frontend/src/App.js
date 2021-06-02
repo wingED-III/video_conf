@@ -1,5 +1,4 @@
 import './App.css';
-import history from "./history";
 import React, { useEffect, useRef, useState } from "react"
 import { Button, TextField } from '@material-ui/core';
 import { CopyToClipboard } from "react-copy-to-clipboard"
@@ -89,24 +88,6 @@ function App() {
          */}
       </div> 
       <div className="room">
-      <TextField
-					id="filled-basic"
-					label="Room ID"
-					variant="filled"
-					value={idToCall}
-					onChange={(e) => setIdToCall(e.target.value)}
-				/>
-        <div className="call-button">
-						<Button variant="contained" color="primary"  onClick={() => callUser(idToCall)}>
-							Join Room
-						</Button>
-					{idToCall} {name}
-          </div>
-        <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-        <Button variant="contained" color="primary">
-          Create Room
-        </Button>
-        </CopyToClipboard>
         <form className="form">
           <CustomizedInput
             label="Name"
