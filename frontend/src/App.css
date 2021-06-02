@@ -2,9 +2,45 @@ body {
     background: #AFC7E0;
   }
   
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .room {
     display: block;
+    margin-left: 50px;
+
 }
+
+.video-container {
+  padding: 20px;
+  margin-top: 30px;
+}
+  .video-container .video {
+    border-radius: 10px;
+  }
+
+button.muteVideo {
+  background: #e8e8e8;
+}
+button.muteVideo:active{
+  background: #e8e8e8;
+  background-image:url(cameraoff.png);
+}
+/*button.muteAudio {
+  background: #e8e8e8;
+}
+button.muteVideo:active{
+  background: #e8e8e8;
+  background-image:url(micoff.png);
+  background-repeat: no-repeat;
+}*/
 
 .form {
     border-radius: 7px;

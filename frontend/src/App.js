@@ -21,11 +21,15 @@ function App() {
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ name, setName ] = useState("")
-  useEffect(()=> {/*
+
+  let localStream
+  
+  
+  useEffect(()=> {
     navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
       setStream(stream)
       myVideo.current.srcObject = stream
-    }) */
+    }) 
     socket.on("me", (id) => {
 			setMe(id)
 		})
@@ -68,24 +72,31 @@ function App() {
 		setCallEnded(true)
 		connectionRef.current.destroy()
 	}
-  //อยู่ใน const callUser กับ const answerCall จ้า
-  /*peer.on("stream", (stream) => {
-    userVideo.current.srcObject = stream
-  })*/
 
+  let isVideo = true
+  const muteVideo = () => {
+    stream.getVideoTracks()[0].enabled = false
+  }
+
+  const muteAudio = () => {
+    stream.getVideoTracks()[0].enabled = true
+  }
 
   return (
     <div className="container">
       <div className="video-container">
-       {/*  <div className="video">
+        <div className="video">
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "300px"}}/>}
+        </div>
+        <div>
+          <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
+          <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
         </div>
        <div className="video">
          {callAccepted && !callEnded ?
             <video playsInline ref={userVideo} autoPlay style={{width:"300px"}}/>:
         null} 
         </div> 
-         */}
       </div> 
       <div className="room">
         <form className="form">
