@@ -13,12 +13,15 @@ function App() {
   const myVideo = useRef()
   const userVideo = useRef()
   const connectionRef = useRef()
-  const [ stream, setStream ] = useState()
-  const [ idToCall, setIdToCall ] = useState("")
   const [ me, setMe ] = useState("")
-  const [ callEnded, setCallEnded] = useState(false)
-  const [ callAccepted, setCallAccepted ] = useState(false)
-  const [name, setName] = useState("");
+	const [ stream, setStream ] = useState()
+	const [ receivingCall, setReceivingCall ] = useState(false)
+	const [ caller, setCaller ] = useState("")
+	const [ callerSignal, setCallerSignal ] = useState()
+	const [ callAccepted, setCallAccepted ] = useState(false)
+	const [ idToCall, setIdToCall ] = useState("")
+	const [ callEnded, setCallEnded] = useState(false)
+	const [ name, setName ] = useState("")
   useEffect(()=> {/*
     navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
       setStream(stream)
@@ -27,8 +30,15 @@ function App() {
     socket.on("me", (id) => {
 			setMe(id)
 		})
+    socket.on("callUser", (data) => {
+			setReceivingCall(true)
+			setCaller(data.from)
+			setName(data.name)
+			setCallerSignal(data.signal)
+		})
   },[])
   const callUser = (id) => {
+
 		const peer = new Peer({
 			initiator: true,
 			trickle: false,
@@ -53,7 +63,7 @@ function App() {
 		})
 
 		connectionRef.current = peer
-    history.push({ pathname: "/room" })
+    console.log("fff")
 	}
   const leaveCall = () => {
 		setCallEnded(true)
@@ -79,6 +89,7 @@ function App() {
          */}
       </div> 
       <div className="room">
+<<<<<<< HEAD
       <TextField
 					id="filled-basic"
 					label="Room ID"
@@ -97,6 +108,8 @@ function App() {
           Create Room
         </Button>
         </CopyToClipboard>
+=======
+>>>>>>> 289722f3476eed70b6157baf37ccf74123bf0fff
         <form className="form">
           <CustomizedInput
             label="Name"
@@ -106,14 +119,20 @@ function App() {
           <CustomizedInput
             label="Room ID"
             id="roomid"
+<<<<<<< HEAD
             handleChange={(e) => setIdToCall(e.target.value)}
+=======
+            handleChange={callUser(idToCall)}
+>>>>>>> 289722f3476eed70b6157baf37ccf74123bf0fff
           />
-          <Button type="button" className="form__custom-button" >
+          <Button type="button" className="form__custom-button"  onClick={() => callUser(idToCall)}>
             Join Room
           </Button>
+          <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
           <Button type="button" className="form__custom-button">
             Create Room
           </Button>
+          </CopyToClipboard>
         </form>
       </div>
     </div>
