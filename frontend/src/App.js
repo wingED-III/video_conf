@@ -89,7 +89,6 @@ function App() {
          */}
       </div> 
       <div className="room">
-<<<<<<< HEAD
       <TextField
 					id="filled-basic"
 					label="Room ID"
@@ -108,8 +107,6 @@ function App() {
           Create Room
         </Button>
         </CopyToClipboard>
-=======
->>>>>>> 289722f3476eed70b6157baf37ccf74123bf0fff
         <form className="form">
           <CustomizedInput
             label="Name"
@@ -119,11 +116,7 @@ function App() {
           <CustomizedInput
             label="Room ID"
             id="roomid"
-<<<<<<< HEAD
             handleChange={(e) => setIdToCall(e.target.value)}
-=======
-            handleChange={callUser(idToCall)}
->>>>>>> 289722f3476eed70b6157baf37ccf74123bf0fff
           />
           <Button type="button" className="form__custom-button"  onClick={() => callUser(idToCall)}>
             Join Room
