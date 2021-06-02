@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
 import { Button, TextField } from '@material-ui/core';
+import { CopyToClipboard } from "react-copy-to-clipboard"
 // import Peer from "simple-peer"
 import io from "socket.io-client"
 
@@ -12,15 +13,18 @@ function App() {
   const connectionRef = useRef()
   const [ stream, setStream ] = useState()
   const [ idToCall, setIdToCall ] = useState("")
-/*
-  useEffect(()=> {
+  const [ me, setMe ] = useState("")
+
+  useEffect(()=> {/*
     navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
       setStream(stream)
       myVideo.current.srcObject = stream
-    })
-
+    }) */
+    socket.on("me", (id) => {
+			setMe(id)
+		})
   },[])
-  */ 
+  
   //อยู่ใน const callUser กับ const answerCall จ้า
   /*peer.on("stream", (stream) => {
     userVideo.current.srcObject = stream
@@ -29,7 +33,6 @@ function App() {
 
   return (
     <div className="container">
-      <p>test ja</p>
       <div className="video-container">
        {/*  <div className="video">
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "300px"}}/>}
@@ -52,9 +55,11 @@ function App() {
         <Button variant="contained" color="primary">
           Join Room
         </Button>
+        <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
         <Button variant="contained" color="primary">
           Create Room
         </Button>
+        </CopyToClipboard>
         </div>
     </div>
   );
