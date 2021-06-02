@@ -84,45 +84,46 @@ function App() {
   }
 
   return (
-    <div className="container">
-      <div className="video-container">
+    <div><img src={Logo} className="logo"/>
+      <div className="container">
+        <div className="video-container">
+          <div className="video">
+            {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "400px"}}/>}
+          </div>
+          <div>
+            <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
+            <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
+          </div>
         <div className="video">
-          {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "300px"}}/>}
-        </div>
-        <div>
-          <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
-          <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
-        </div>
-       <div className="video">
-         {callAccepted && !callEnded ?
-            <video playsInline ref={userVideo} autoPlay style={{width:"300px"}}/>:
-        null} 
+          {callAccepted && !callEnded ?
+              <video playsInline ref={userVideo} autoPlay style={{width:"300px"}}/>:
+          null} 
+          </div> 
         </div> 
-      </div> 
-      <div className="room">
-        <img src={Logo} className="logo"/>
-        <form className="form">
-          <CustomizedInput
-            label="Name"
-            id="name"
-            handleChange={(e) => setName(e.target.value)}
-          />
-          <CustomizedInput
-            label="Room ID"
-            id="roomid"
-            handleChange={(e) => setIdToCall(e.target.value)}
-          />
-          <Button type="button" className="form__custom-button"  onClick={() => callUser(idToCall)}>
-            Join Room
-          </Button>
-          <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-          <Button type="button" className="form__custom-button">
-            Create Room
-          </Button>
-          </CopyToClipboard>
-        </form>
+        <div className="room">
+          <form className="form">
+            <CustomizedInput
+              label="Name"
+              id="name"
+              handleChange={(e) => setName(e.target.value)}
+            />
+            <CustomizedInput
+              label="Room ID"
+              id="roomid"
+              handleChange={(e) => setIdToCall(e.target.value)}
+            />
+            <Button className="custom-button"  onClick={() => callUser(idToCall)}>
+              Join Room
+            </Button>
+            <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
+            <Button className="custom-button">
+              Create Room
+            </Button>
+            </CopyToClipboard>
+          </form>
+        </div>
       </div>
-    </div>
+      </div>
   );
 }
 

@@ -14,17 +14,19 @@ body {
 
 .room {
     display: block;
+    width: 330px;
+    margin-top: auto;
+    margin-bottom: auto;
     margin-left: 50px;
-
 }
 
 .video-container {
   padding: 20px;
   margin-top: 30px;
 }
-  .video-container .video {
-    border-radius: 10px;
-  }
+.video-container .video {
+  border-radius: 10px;
+}
 
 button.muteVideo {
   background: #e8e8e8;
@@ -43,11 +45,11 @@ button.muteVideo:active{
 }*/
 
 .logo{
-    margin-top: 30px;
-    max-width: 330px;
+    max-width: 250px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
 }
 .form {
     border-radius: 7px;
@@ -59,7 +61,7 @@ button.muteVideo:active{
     padding: 20px;
   }
   
-  .form .form__custom-button {
+.form .custom-button {
     margin-top: 10px;
     border-radius: 7px;
     font-weight: bold;
@@ -69,7 +71,7 @@ button.muteVideo:active{
     color: black;
   }
   
-  .form__custom-button:hover{
+.form .custom-button:hover{
     background-color: black;
     color: white;
     box-shadow: 0 5px 10px -6px gray;
