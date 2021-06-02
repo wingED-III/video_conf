@@ -1,10 +1,10 @@
 import './App.css';
+import history from "./history";
 import React, { useEffect, useRef, useState } from "react"
 import { Button, TextField } from '@material-ui/core';
 import { CopyToClipboard } from "react-copy-to-clipboard"
-// import Peer from "simple-peer"
+import Peer from "simple-peer"
 import io from "socket.io-client"
-
 const socket = io.connect('http://localhost:5000')
 function App() {
 
@@ -14,7 +14,9 @@ function App() {
   const [ stream, setStream ] = useState()
   const [ idToCall, setIdToCall ] = useState("")
   const [ me, setMe ] = useState("")
-
+  const [ callEnded, setCallEnded] = useState(false)
+  const [ callAccepted, setCallAccepted ] = useState(false)
+  const [name, setName] = useState("");
   useEffect(()=> {/*
     navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
       setStream(stream)
@@ -24,7 +26,37 @@ function App() {
 			setMe(id)
 		})
   },[])
-  
+  const callUser = (id) => {
+		const peer = new Peer({
+			initiator: true,
+			trickle: false,
+			stream: stream
+		})
+		peer.on("signal", (data) => {
+			socket.emit("callUser", {
+				userToCall: id,
+				signalData: data,
+				from: me,
+				name: name
+			})
+		})
+		peer.on("stream", (stream) => {
+			
+				userVideo.current.srcObject = stream
+			
+		})
+		socket.on("callAccepted", (signal) => {
+			setCallAccepted(true)
+			peer.signal(signal)
+		})
+
+		connectionRef.current = peer
+    history.push({ pathname: "/room" })
+	}
+  const leaveCall = () => {
+		setCallEnded(true)
+		connectionRef.current.destroy()
+	}
   //อยู่ใน const callUser กับ const answerCall จ้า
   /*peer.on("stream", (stream) => {
     userVideo.current.srcObject = stream
@@ -52,9 +84,12 @@ function App() {
 					value={idToCall}
 					onChange={(e) => setIdToCall(e.target.value)}
 				/>
-        <Button variant="contained" color="primary">
-          Join Room
-        </Button>
+        <div className="call-button">
+						<Button variant="contained" color="primary"  onClick={() => callUser(idToCall)}>
+							Join Room
+						</Button>
+					{idToCall}
+          </div>
         <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
         <Button variant="contained" color="primary">
           Create Room
