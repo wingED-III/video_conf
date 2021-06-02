@@ -90,7 +90,7 @@ function App() {
 						<Button variant="contained" color="primary"  onClick={() => callUser(idToCall)}>
 							Join Room
 						</Button>
-					{idToCall}
+					{idToCall} {name}
           </div>
         <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
         <Button variant="contained" color="primary">
@@ -101,12 +101,12 @@ function App() {
           <CustomizedInput
             label="Name"
             id="name"
-            /*handleChange={this.handleChange}*/
+            handleChange={(e) => setName(e.target.value)}
           />
           <CustomizedInput
             label="Room ID"
             id="roomid"
-            /*handleChange={this.handleChange}*/
+            handleChange={(e) => setIdToCall(e.target.value)}
           />
           <Button type="button" className="form__custom-button" >
             Join Room
