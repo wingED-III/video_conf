@@ -5,6 +5,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
 import CustomizedInput from "./components/CustomizedInput";
+import Logo from "./components/Zeem.png";
 
 const socket = io.connect('http://localhost:5000')
 function App() {
@@ -88,6 +89,7 @@ function App() {
          */}
       </div> 
       <div className="room">
+        <img src={Logo} className="logo"/>
         <form className="form">
           <CustomizedInput
             label="Name"
