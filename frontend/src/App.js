@@ -1,11 +1,14 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Tooltip, Typography } from '@material-ui/core';
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
 import CustomizedInput from "./components/CustomizedInput";
 import Logo from "./components/Zeem.png";
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const socket = io.connect('http://localhost:5000')
 function App() {
@@ -84,7 +87,18 @@ function App() {
   }
 
   return (
-    <div><img src={Logo} className="logo"/>
+    <div className="top-down">
+      <img src={Logo} className="logo-main"/*is in room => logo-calling*//>
+      {false && <div display='none' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Typography variant='h5'>
+          Room ID:     
+        </Typography>
+        <Tooltip title="Copy to Clipboard">
+          <IconButton onClick={() => {navigator.clipboard.writeText('roomid')}}>
+            <FileCopyIcon />
+          </IconButton>
+        </Tooltip>
+      </div>}
       <div className="container">
         <div className="video-container">
           <div className="video">
@@ -112,7 +126,7 @@ function App() {
               id="roomid"
               handleChange={(e) => setIdToCall(e.target.value)}
             />
-            <Button className="custom-button"  onClick={() => callUser(idToCall)}>
+            <Button className="custom-button"  onClick={callUser(idToCall)}>
               Join Room
             </Button>
             <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
@@ -123,7 +137,11 @@ function App() {
           </form>
         </div>
       </div>
-      </div>
+
+      {false&&<Button className="custom-button">
+          Leave Call
+      </Button>}
+    </div>
   );
 }
 
