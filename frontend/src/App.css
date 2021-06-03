@@ -16,7 +16,6 @@ body {
 }
 
 .room {
-    display: block;
     width: 330px;
     margin-top: auto;
     margin-bottom: auto;
@@ -55,7 +54,7 @@ button.muteVideo:active{
     margin-top: 20px;
 }
 .logo-calling{
-  max-width: 125px;
+  max-width: 175px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -87,10 +86,32 @@ button.muteVideo:active{
     box-shadow: 0 5px 10px -6px gray;
   }
 
-.leave-button{
-  background-color: #990f0f;
-  max-width: 150;
-  font-size: 24;
+.top-down .leave-button{
+  background-color: #E83B3B;
+  max-width: 200px;
+  color: white;
+  font-size: 24px;
   border-radius: 7px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 350px;
+}
+
+.top-down .leave-button:hover{
+  background-color: #be2121;
+  color: white;
+  box-shadow: 0 5px 10px -6px gray;
+}
+
+.room-header{
+  display: flex; 
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.room-header .room-id{
+  font-size: 24px;
   font-weight: bold;
 }
