@@ -93,7 +93,7 @@ function App() {
   return (
     <div className="top-down">
       <img src={Logo} className="logo-main"/*is in room => logo-calling*//>
-      {false && 
+      {true && 
       <div className="room-header">
         <Typography className="room-id">
           Room ID:     
@@ -142,7 +142,7 @@ function App() {
           </form>
         </div>
       </div>
-      {false && <div className="room-header">
+      {true && <div className="room-header">
         <Typography className="room-id">
           Someone is Calling ...     
         </Typography>
@@ -153,7 +153,7 @@ function App() {
             <CallEndIcon />
           </Button>
       </div>}
-      {false&&<Button className="leave-button" onClick={leaveCall}>
+      {true&&<Button className="leave-button" onClick={leaveCall}>
           Leave Call
       </Button>}
     </div>
