@@ -77,6 +77,23 @@ function App() {
 		setCallEnded(true)
 		connectionRef.current.destroy()
 	}
+  const answerCall =() =>  {
+		setCallAccepted(true)
+		const peer = new Peer({
+			initiator: false,
+			trickle: false,
+			stream: stream
+		})
+		peer.on("signal", (data) => {
+			socket.emit("answerCall", { signal: data, to: caller })
+		})
+		peer.on("stream", (stream) => {
+			userVideo.current.srcObject = stream
+		})
+
+		peer.signal(callerSignal)
+		connectionRef.current = peer
+	}
 
   let isVideo = true
   const muteVideo = () => {
@@ -142,21 +159,21 @@ function App() {
           </form>
         </div>
       </div>
-      {true && <div className="room-header">
+      {receivingCall && !callAccepted ? <div className="room-header">
         <Typography className="room-id">
           Someone is Calling ...     
         </Typography>
-          <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}}>
+          <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}} onClick={answerCall}>
             <CallIcon />
           </Button>
-          <Button variant="contained" style={{color:'white', backgroundColor:'#E83B3B'}}>
+          <Button variant="contained" style={{color:'white', backgroundColor:'#E83B3B'}} onClick={leaveCall}>
             <CallEndIcon />
           </Button>
-      </div>}
-      {true&&<Button className="leave-button" onClick={leaveCall}>
+      </div> : null }
+      {!callEnded && callAccepted ?  <Button className="leave-button" onClick={leaveCall}>
           Leave Call
-      </Button>}
-    </div>
+      </Button> : null}
+    </div> 
   );
 }
 
