@@ -14,6 +14,7 @@ const socket = io.connect('http://localhost:5000')
 function App() {
 
   const myVideo = useRef()
+  const myAudio = useRef()
   const userVideo = useRef()
   const connectionRef = useRef()
   const [ me, setMe ] = useState("")
@@ -134,15 +135,12 @@ function App() {
         <div className="video">
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
-        
-      </div>
-      <div className="video-container">
-       <div className="video">
-        {callAccepted && !callEnded ?
-          <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
-        null} 
+        <div className="video-user">
+          {callAccepted && !callEnded ?
+            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
+          null} 
         </div> 
-      </div> 
+      </div>
       {!(callAccepted && !callEnded) &&
         <div className="room">
           <form className="form">
@@ -179,18 +177,18 @@ function App() {
       </div> : null }
       
         
-      {!callEnded && callAccepted ?  
       <div className="down-button">
         <Button className="muteVideo" onClick={() => muteVideo()}>
-        <img src="camera.png"></img>
-      </Button>
+          <img src="camera.png"></img>
+        </Button>
+      {!callEnded && callAccepted ?  
         <Button className="leave-button" onClick={leaveCall}>
           Leave Call
-        </Button> 
+        </Button> : null}
         <Button className="muteAudio" onclick={() => muteAudio()}>
             <img src="mic.png"></img>
         </Button>
-      </div>: null}
+      </div>
     </div> 
   );
 }
