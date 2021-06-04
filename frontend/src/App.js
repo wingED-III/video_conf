@@ -110,7 +110,7 @@ function App() {
   return (
     <div className="top-down">
       <img src={Logo} className="logo-main"/*is in room => logo-calling*//>
-      {false && 
+      {true && 
       <div className="room-header">
         <Typography className="room-id">
           Room ID:     
