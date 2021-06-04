@@ -1,9 +1,10 @@
 body {
     background: #AFC7E0;
   }
+
 .top-down{
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 .container {
   display: flex;
@@ -15,43 +16,33 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.room {
-    width: 330px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 50px;
+room {
+  width: 330px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 50px;
 }
-
 .video-container {
   padding: 20px;
   margin-top: 30px;
 }
-.video-container .video {
+.video {
   border-radius: 10px;
 }
-
 button.muteVideo {
   background: #e8e8e8;
+  border-radius:20px;
 }
-button.muteVideo:active{
+button.muteAudio {
   background: #e8e8e8;
-  background-image:url(cameraoff.png);
+  border-radius:20px;
 }
-/*button.muteAudio {
-  background: #e8e8e8;
-}
-button.muteVideo:active{
-  background: #e8e8e8;
-  background-image:url(micoff.png);
-  background-repeat: no-repeat;
-}*/
-
 .logo-main{
-    max-width: 250px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+  max-width: 250px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 .logo-calling{
   max-width: 175px;
@@ -85,33 +76,32 @@ button.muteVideo:active{
     color: white;
     box-shadow: 0 5px 10px -6px gray;
   }
-
-.top-down .leave-button{
-  background-color: #E83B3B;
-  max-width: 200px;
-  color: white;
-  font-size: 24px;
-  border-radius: 7px;
-  font-weight: bold;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 350px;
-}
-
-.top-down .leave-button:hover{
-  background-color: #be2121;
-  color: white;
-  box-shadow: 0 5px 10px -6px gray;
-}
-
-.room-header{
-  display: flex; 
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.room-header .room-id{
-  font-size: 24px;
-  font-weight: bold;
-}
+  .top-down .leave-button{
+    background-color: #E83B3B;
+    max-width: 200px;
+    color: white;
+    font-size: 24px;
+    border-radius: 7px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 350px;
+  }
+  
+  .top-down .leave-button:hover{
+    background-color: #be2121;
+    color: white;
+    box-shadow: 0 5px 10px -6px gray;
+  }
+  
+  .room-header{
+    display: flex; 
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .room-header .room-id{
+    font-size: 24px;
+    font-weight: bold;
+  } 

@@ -32,7 +32,7 @@ function App() {
   useEffect(()=> {
     navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
       setStream(stream)
-      myVideo.current.srcObject = stream
+        myVideo.current.srcObject = stream
     }) 
     socket.on("me", (id) => {
 			setMe(id)
@@ -44,6 +44,7 @@ function App() {
 			setCallerSignal(data.signal)
 		})
   },[])
+  
   const callUser = (id) => {
 
 		const peer = new Peer({
@@ -79,11 +80,14 @@ function App() {
 
   let isVideo = true
   const muteVideo = () => {
-    stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled
+    isVideo = !isVideo
+    stream.getVideoTracks()[0].enabled = isVideo
   }
 
+  let isAudio = true
   const muteAudio = () => {
-    stream.getVideoTracks()[0].enabled = !stream.getVideoTracks()[0].enabled
+    isAudio = !isAudio
+    stream.getAudioTracks()[0].enabled = isAudio
   }
 
   return (
@@ -95,27 +99,27 @@ function App() {
           Room ID:     
         </Typography>
         <Tooltip title="Copy to Clipboard">
-          <Button variant="text" onClick={() => {navigator.clipboard.writeText('roomid')}}>
+        <Button variant="text" onClick={() => {navigator.clipboard.writeText('roomid')}}>
             <FileCopyIcon/>
           </Button>
         </Tooltip>
       </div>}
       <div className="container">
-        <div className="video-container">
-          <div className="video">
-            {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "400px"}}/>}
-          </div>
-          <div>
-            <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
-            <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
-          </div>
+      <div className="video-container">
         <div className="video">
-          {callAccepted && !callEnded ?
-            <video playsInline ref={userVideo} autoPlay style={{width:"300px"}}/>:
-          null} 
-          </div> 
+          {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
+        </div>
+        <div>
+          <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
+          <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
+        </div>
+       <div className="video">
+        {callAccepted && !callEnded ?
+          <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
+        null} 
         </div> 
-        <div className="room">
+      </div> 
+      <div className="room">
           <form className="form">
             <CustomizedInput
               label="Name"
