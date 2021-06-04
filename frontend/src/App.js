@@ -159,7 +159,7 @@ function App() {
           </form>
         </div>
       </div>
-      {receivingCall && !callAccepted ? <div className="room-header">
+      {receivingCall && !callAccepted &&!callEnded ? <div className="room-header">
         <Typography className="room-id">
           Someone is Calling ...     
         </Typography>
