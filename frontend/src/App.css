@@ -11,7 +11,6 @@ body {
   flex-direction: row;
   margin-left: auto;
   margin-right: auto;
-  
 }
 
 .room {
@@ -20,21 +19,31 @@ body {
   margin-bottom: auto;
   margin-left: 50px;
 }
+
 .video-container {
-  padding: 20px;
-  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
 }
-.video {
-  border-radius: 10px;
+
+.video-user{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 50px;
 }
+
 
 button.muteVideo {
   background: #e8e8e8;
   border-radius:20px;
+  height: 45px;
+  margin-right: 10px;
 }
 button.muteAudio {
   background: #e8e8e8;
   border-radius:20px;
+  height: 45px;
+  margin-left: 10px;
 }
 .logo-main{
   max-width: 250px;
@@ -75,18 +84,23 @@ button.muteAudio {
     color: white;
     box-shadow: 0 5px 10px -6px gray;
   }
-  .top-down .leave-button{
+
+  .top-down .down-button{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .down-button .leave-button{
     background-color: #E83B3B;
     max-width: 200px;
     color: white;
     font-size: 24px;
     border-radius: 7px;
     font-weight: bold;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    
   }
-  
+
   .top-down .leave-button:hover{
     background-color: #be2121;
     color: white;

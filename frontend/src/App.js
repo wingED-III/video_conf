@@ -126,13 +126,13 @@ function App() {
         <div className="video">
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
-        <div>
+        {/*<div>
           <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
           <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
-        </div>
-       <div className="video">
-        {callAccepted && !callEnded ?
-          <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
+        </div>*/}
+        <div className="video-user">
+          {callAccepted && !callEnded ?
+            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
         null} 
         </div> 
       </div> 
@@ -171,9 +171,18 @@ function App() {
             <CallEndIcon />
           </Button>
       </div> : null }
-      {!callEnded && callAccepted ?  <Button className="leave-button" onClick={leaveCall}>
+      <div className="down-button">
+        <Button className="muteVideo" onClick={() => muteVideo()}>
+          <img src="camera.png"></img>
+        </Button>
+      {!callEnded && callAccepted ?  
+        <Button className="leave-button" onClick={leaveCall}>
           Leave Call
-      </Button> : null}
+        </Button> : null}
+        <Button className="muteAudio" onclick={() => muteAudio()}>
+            <img src="mic.png"></img>
+        </Button>
+      </div>
     </div> 
   );
 }
