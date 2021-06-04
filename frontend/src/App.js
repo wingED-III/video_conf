@@ -109,14 +109,14 @@ function App() {
 
   return (
     <div className="top-down">
-      <img src={Logo} className="logo-main"/*is in room => logo-calling*//>
-      {true && 
+      <img src={Logo} className={"logo-calling"}/>
+      {//callEnded && !callAccepted && 
       <div className="room-header">
         <Typography className="room-id">
-          Room ID:     
+          Room ID: {me}   
         </Typography>
         <Tooltip title="Copy to Clipboard">
-        <Button variant="text" onClick={() => {navigator.clipboard.writeText('roomid')}}>
+        <Button variant="text" onClick={() => {navigator.clipboard.writeText(me)}}>
             <FileCopyIcon/>
           </Button>
         </Tooltip>
@@ -136,7 +136,8 @@ function App() {
         null} 
         </div> 
       </div> 
-      <div className="room">
+      {!(callAccepted && !callEnded) &&
+        <div className="room">
           <form className="form">
             <CustomizedInput
               label="Name"
@@ -157,7 +158,7 @@ function App() {
             </Button>
             </CopyToClipboard>
           </form>
-        </div>
+        </div>}
       </div>
       {receivingCall && !callAccepted ? <div className="room-header">
         <Typography className="room-id">
