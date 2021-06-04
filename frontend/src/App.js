@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
 import { Button, Tooltip, Typography, useControlled } from '@material-ui/core';
-import { CopyToClipboard } from "react-copy-to-clipboard"
+
 import Peer from "simple-peer"
 import io from "socket.io-client"
 import CustomizedInput from "./components/CustomizedInput";
