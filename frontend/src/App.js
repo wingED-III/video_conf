@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Tooltip, Typography } from '@material-ui/core';ฃ
+import { Button, Tooltip, Typography } from '@material-ui/core';
 import Peer from "simple-peer"
 import io from "socket.io-client"
 import CustomizedInput from "./components/CustomizedInput";
@@ -24,7 +24,7 @@ function App() {
 	const [ callAccepted, setCallAccepted ] = useState(false)
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
-	const [ name, setName ] = useState("")
+	const [ name, setName ] = useState("user")
   const [ roomId, setRoomId ] = useState("")
 
   let localStream
@@ -130,13 +130,14 @@ function App() {
       <div className="container">
       <div className="video-container">
         <div className="video">
+          <Typography>{name}</Typography>
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
-        <div className="video-user">
-          {callAccepted && !callEnded ?
-            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
-          null} 
-        </div> 
+        {callAccepted && !callEnded &&
+          <div className="video-user">
+            <Typography>{name}</Typography>
+            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>
+          </div>}
       </div>
       {!(callAccepted && !callEnded) &&
         <div className="room">
