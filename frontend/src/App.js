@@ -28,7 +28,7 @@ function App() {
 	const [ name, setName ] = useState("")
   const [ othername, setOtherName ] = useState("")
   const [ roomId, setRoomId ] = useState("")
-  
+  const [ isAudio, setAudio] = useState(true)
   
   useEffect(()=> {
     navigator.mediaDevices.getUserMedia({video: true, audio: true}).then((stream) =>{
@@ -83,6 +83,7 @@ function App() {
 	}
   const leaveCall = () => {	
     setCallEnded(true)
+    setReceivingCall(false)
     socket.emit("callEnded", {
 
     })
@@ -116,10 +117,8 @@ function App() {
     stream.getVideoTracks()[0].enabled = isVideo
   }
 
-  let isAudio = true
   const muteAudio = () => {
-    isAudio = !isAudio
-    stream.getAudioTracks()[0].enabled = isAudio
+    stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled
   }
 
   return (
