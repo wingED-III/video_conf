@@ -26,6 +26,7 @@ function App() {
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ name, setName ] = useState("")
+  const [ othername, setOtherName ] = useState("")
   const [ roomId, setRoomId ] = useState("")
   
   
@@ -40,17 +41,20 @@ function App() {
     socket.on("callUser", (data) => {
 			setReceivingCall(true)
 			setCaller(data.from)
-			setName(data.name)
+			setOtherName(data.name)
 			setCallerSignal(data.signal)
 		})
     socket.on("callEnded", () => {
       setCallEnded(true)
       connectionRef.current.destroy()
 		})
+    socket.on("callAccepted", (data) => {
+      setOtherName(data.name)
+		})
    
   },[])
   
-  const callUser = (id) => {
+  const callUser = (id,name) => {
 
 		const peer = new Peer({
 			initiator: true,
@@ -70,9 +74,9 @@ function App() {
 				userVideo.current.srcObject = stream
 			
 		})
-		socket.on("callAccepted", (signal) => {
+		socket.on("callAccepted", (data) => {
 			setCallAccepted(true)
-			peer.signal(signal)
+			peer.signal(data.signal)
 		})
 		connectionRef.current = peer
     console.log("fff")
@@ -92,7 +96,7 @@ function App() {
 			stream: stream
 		})
 		peer.on("signal", (data) => {
-			socket.emit("answerCall", { signal: data, to: caller })
+			socket.emit("answerCall", { signal: data, to: caller, name: name })
 		})
 		peer.on("stream", (stream) => {
 			userVideo.current.srcObject = stream
@@ -135,13 +139,14 @@ function App() {
       <div className="container">
       <div className="video-container">
         <div className="video">
+          {name}
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
+        {callAccepted && !callEnded ? 
         <div className="video-user">
-          {callAccepted && !callEnded ?
-            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
-          null} 
-        </div> 
+          {othername}
+            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>
+        </div> : null}
       </div>
       {!(callAccepted && !callEnded) &&
         <div className="room">
@@ -154,7 +159,7 @@ function App() {
               label="Room ID"
               handleChange={(e) => setIdToCall(e.target.value)}
             />
-            <Button className="custom-button"  onClick={callUser(idToCall)}>
+            <Button className="custom-button"  onClick={callUser(idToCall,name)}>
               Join Room
             </Button>
             <Button className="custom-button"  onClick={handleCreateRoom}>
@@ -166,7 +171,7 @@ function App() {
       {receivingCall && !callAccepted &&!callEnded ? 
       <div className="room-header" style={{marginTop:'25px'}}>
         <Typography className="room-id">
-          Someone is Calling ...     
+          {othername} is Calling ...     
         </Typography>
           <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}} onClick={answerCall}>
             <CallIcon />
