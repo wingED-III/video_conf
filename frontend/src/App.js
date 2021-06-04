@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Tooltip, Typography } from '@material-ui/core';
+import { Button, Tooltip, Typography, useControlled } from '@material-ui/core';
 import { CopyToClipboard } from "react-copy-to-clipboard"
 import Peer from "simple-peer"
 import io from "socket.io-client"
@@ -27,12 +27,10 @@ function App() {
 	const [ name, setName ] = useState("")
   const [ inRoom, setInRoom] = useState(false)
   const [ roomId, setRoomId ] = useState("")
-
-  let localStream
   
   
   useEffect(()=> {
-    navigator.mediaDevices.getUserMedia({video: true,audio: true}).then((stream) =>{
+    navigator.mediaDevices.getUserMedia({video: true, audio: true}).then((stream) =>{
       setStream(stream)
         myVideo.current.srcObject = stream
     }) 
@@ -45,6 +43,11 @@ function App() {
 			setName(data.name)
 			setCallerSignal(data.signal)
 		})
+    socket.on("callEnded", () => {
+      setCallEnded(true)
+      connectionRef.current.destroy()
+		})
+   
   },[])
   
   const callUser = (id) => {
@@ -71,12 +74,14 @@ function App() {
 			setCallAccepted(true)
 			peer.signal(signal)
 		})
-
 		connectionRef.current = peer
     console.log("fff")
 	}
-  const leaveCall = () => {
-		setCallEnded(true)
+  const leaveCall = () => {	
+    setCallEnded(true)
+    socket.emit("callEnded", {
+
+    })
 		connectionRef.current.destroy()
     setInRoom(false)
 	}
@@ -93,7 +98,6 @@ function App() {
 		peer.on("stream", (stream) => {
 			userVideo.current.srcObject = stream
 		})
-
 		peer.signal(callerSignal)
 		connectionRef.current = peer
 	}
