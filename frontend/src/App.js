@@ -25,6 +25,8 @@ function App() {
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ name, setName ] = useState("")
+  const [ inRoom, setInRoom] = useState(false)
+  const [ roomId, setRoomId ] = useState("")
 
   let localStream
   
@@ -76,6 +78,7 @@ function App() {
   const leaveCall = () => {
 		setCallEnded(true)
 		connectionRef.current.destroy()
+    setInRoom(false)
 	}
   const answerCall =() =>  {
 		setCallAccepted(true)
@@ -95,6 +98,11 @@ function App() {
 		connectionRef.current = peer
 	}
 
+  const handleCreateRoom =()=>{
+    setRoomId(me)
+    console.log(roomId)
+  }
+
   let isVideo = true
   const muteVideo = () => {
     isVideo = !isVideo
@@ -109,11 +117,11 @@ function App() {
 
   return (
     <div className="top-down">
-      <img src={Logo} className={"logo-calling"}/>
-      {//callEnded && !callAccepted && 
+      <img src={Logo} className={roomId!==""?"logo-calling":"logo-main"}/>
+      { roomId!=="" && 
       <div className="room-header">
         <Typography className="room-id">
-          Room ID: {me}   
+          Room ID: {roomId}   
         </Typography>
         <Tooltip title="Copy to Clipboard">
         <Button variant="text" onClick={() => {navigator.clipboard.writeText(me)}}>
@@ -130,6 +138,8 @@ function App() {
           <Button className="muteVideo" src onClick={() => muteVideo()}><img src="camera.png" style={{width:"24px"}}></img></Button>
           <Button className="muteAudio" onclick={() => muteAudio()}><img src="mic.png" style={{width:"24px"}}></img></Button>
         </div>
+      </div>
+      <div className="video-container">
        <div className="video">
         {callAccepted && !callEnded ?
           <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
@@ -141,19 +151,17 @@ function App() {
           <form className="form">
             <CustomizedInput
               label="Name"
-              id="name"
               handleChange={(e) => setName(e.target.value)}
             />
             <CustomizedInput
               label="Room ID"
-              id="roomid"
               handleChange={(e) => setIdToCall(e.target.value)}
             />
             <Button className="custom-button"  onClick={callUser(idToCall)}>
               Join Room
             </Button>
             <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-            <Button className="custom-button">
+            <Button className="custom-button" onclick={handleCreateRoom}>
               Create Room
             </Button>
             </CopyToClipboard>
