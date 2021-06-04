@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect, useRef, useState } from "react"
-import { Button, Tooltip, Typography } from '@material-ui/core';
-import { CopyToClipboard } from "react-copy-to-clipboard"
+import { Button, Tooltip, Typography } from '@material-ui/core';ฃ
 import Peer from "simple-peer"
 import io from "socket.io-client"
 import CustomizedInput from "./components/CustomizedInput";
@@ -25,7 +24,6 @@ function App() {
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ name, setName ] = useState("")
-  const [ inRoom, setInRoom] = useState(false)
   const [ roomId, setRoomId ] = useState("")
 
   let localStream
@@ -78,7 +76,6 @@ function App() {
   const leaveCall = () => {
 		setCallEnded(true)
 		connectionRef.current.destroy()
-    setInRoom(false)
 	}
   const answerCall =() =>  {
 		setCallAccepted(true)
@@ -99,8 +96,8 @@ function App() {
 	}
 
   const handleCreateRoom =()=>{
+    navigator.clipboard.writeText(me)
     setRoomId(me)
-    console.log(roomId)
   }
 
   let isVideo = true
@@ -119,7 +116,7 @@ function App() {
     <div className="top-down">
       <img src={Logo} className={roomId!==""?"logo-calling":"logo-main"}/>
       { roomId!=="" && 
-      <div className="room-header">
+      <div className="room-header" id="room-id">
         <Typography className="room-id">
           Room ID: {roomId}   
         </Typography>
@@ -157,11 +154,9 @@ function App() {
             <Button className="custom-button"  onClick={callUser(idToCall)}>
               Join Room
             </Button>
-            <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-            <Button className="custom-button" onclick={handleCreateRoom}>
+            <Button className="custom-button"  onClick={handleCreateRoom}>
               Create Room
             </Button>
-            </CopyToClipboard>
           </form>
         </div>}
       </div>
