@@ -14,6 +14,7 @@ const socket = io.connect('http://localhost:5000')
 function App() {
 
   const myVideo = useRef()
+  const myAudio = useRef()
   const userVideo = useRef()
   const connectionRef = useRef()
   const [ me, setMe ] = useState("")
@@ -25,7 +26,6 @@ function App() {
 	const [ idToCall, setIdToCall ] = useState("")
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ name, setName ] = useState("")
-  const [ inRoom, setInRoom] = useState(false)
   const [ roomId, setRoomId ] = useState("")
   
   
@@ -83,7 +83,6 @@ function App() {
 
     })
 		connectionRef.current.destroy()
-    setInRoom(false)
 	}
   const answerCall =() =>  {
 		setCallAccepted(true)
@@ -103,8 +102,8 @@ function App() {
 	}
 
   const handleCreateRoom =()=>{
+    navigator.clipboard.writeText(me)
     setRoomId(me)
-    console.log(roomId)
   }
 
   let isVideo = true
@@ -123,7 +122,7 @@ function App() {
     <div className="top-down">
       <img src={Logo} className={roomId!==""?"logo-calling":"logo-main"}/>
       { roomId!=="" && 
-      <div className="room-header">
+      <div className="room-header" id="room-id">
         <Typography className="room-id">
           Room ID: {roomId}   
         </Typography>
@@ -138,15 +137,12 @@ function App() {
         <div className="video">
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
-        
-      </div>
-      <div className="video-container">
-       <div className="video">
-        {callAccepted && !callEnded ?
-          <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
-        null} 
+        <div className="video-user">
+          {callAccepted && !callEnded ?
+            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>:
+          null} 
         </div> 
-      </div> 
+      </div>
       {!(callAccepted && !callEnded) &&
         <div className="room">
           <form className="form">
@@ -161,11 +157,9 @@ function App() {
             <Button className="custom-button"  onClick={callUser(idToCall)}>
               Join Room
             </Button>
-            <CopyToClipboard text={me} style={{ marginBottom: "2rem" }}>
-            <Button className="custom-button" onclick={handleCreateRoom}>
+            <Button className="custom-button"  onClick={handleCreateRoom}>
               Create Room
             </Button>
-            </CopyToClipboard>
           </form>
         </div>}
       </div>
@@ -183,18 +177,18 @@ function App() {
       </div> : null }
       
         
-      {!callEnded && callAccepted ?  
       <div className="down-button">
         <Button className="muteVideo" onClick={() => muteVideo()}>
-        <img src="camera.png"></img>
-      </Button>
+          <img src="camera.png"></img>
+        </Button>
+      {!callEnded && callAccepted ?  
         <Button className="leave-button" onClick={leaveCall}>
           Leave Call
-        </Button> 
+        </Button> : null}
         <Button className="muteAudio" onclick={() => muteAudio()}>
             <img src="mic.png"></img>
         </Button>
-      </div>: null}
+      </div>
     </div> 
   );
 }
