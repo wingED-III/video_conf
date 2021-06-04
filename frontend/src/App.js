@@ -28,7 +28,6 @@ function App() {
 	const [ name, setName ] = useState("")
   const [ othername, setOtherName ] = useState("")
   const [ roomId, setRoomId ] = useState("")
-  const [ isAudio, setAudio] = useState(true)
   
   useEffect(()=> {
     navigator.mediaDevices.getUserMedia({video: true, audio: true}).then((stream) =>{
@@ -115,10 +114,28 @@ function App() {
   const muteVideo = () => {
     isVideo = !isVideo
     stream.getVideoTracks()[0].enabled = isVideo
+    if(isVideo === false){
+      console.log('camera close')
+      document.getElementById("vdoimg").src="cameraoff.png"
+    }
+    else{
+      document.getElementById("vdoimg").src="camera.png"
+    }
+
   }
 
+  let isAudio = true
   const muteAudio = () => {
-    stream.getAudioTracks()[0].enabled = !stream.getAudioTracks()[0].enabled
+    isAudio = !isAudio
+    stream.getAudioTracks()[0].enabled = isAudio
+    if(isAudio === false){
+      console.log('mic close')
+      document.getElementById("micimg").src="micoff.png"
+    }
+    else{
+      document.getElementById("micimg").src="mic.png"
+    }
+
   }
 
   return (
@@ -183,14 +200,14 @@ function App() {
         
       <div className="down-button">
         <Button className="muteVideo" onClick={() => muteVideo()}>
-          <img src="camera.png"></img>
+          <img id="vdoimg" src="camera.png"></img>
         </Button>
       {!callEnded && callAccepted ?  
         <Button className="leave-button" onClick={leaveCall}>
           Leave Call
         </Button> : null}
-        <Button className="muteAudio" onclick={() => muteAudio()}>
-            <img src="mic.png"></img>
+        <Button className="muteAudio" onClick={() => muteAudio()}>
+            <img id="micimg" src="mic.png"></img>
         </Button>
       </div>
     </div> 
