@@ -138,12 +138,12 @@ function App() {
       <div className="container">
       <div className="video-container">
         <div className="video">
-          {name}
+          <Typography variant='h5'style={{color:'#635a56'}}>{name!==""?name:'Me'}</Typography>
           {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
         {callAccepted && !callEnded ? 
         <div className="video-user">
-          {othername}
+          <Typography variant='h5' style={{color:'#635a56'}}>{othername!==""?othername:"Unknown User"}</Typography>
             <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>
         </div> : null}
       </div>
@@ -170,7 +170,7 @@ function App() {
       {receivingCall && !callAccepted &&!callEnded ? 
       <div className="room-header" style={{marginTop:'25px'}}>
         <Typography className="room-id">
-          {othername} is Calling ...     
+          {othername!==""?othername:"Unknown User"} is Calling ...     
         </Typography>
           <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}} onClick={answerCall}>
             <CallIcon />
