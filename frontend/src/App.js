@@ -163,16 +163,16 @@ function App() {
         <Typography className="room-id">
           Someone is Calling ...     
         </Typography>
-          <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}}>
+          <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}} onClick={answerCall}>
             <CallIcon />
           </Button>
-          <Button variant="contained" style={{color:'white', backgroundColor:'#E83B3B'}}>
+          <Button variant="contained" style={{color:'white', backgroundColor:'#E83B3B'}} onClick={leaveCall}>
             <CallEndIcon />
           </Button>
       </div> : null }
-      {false&&<Button className="leave-button" onClick={leaveCall}>
+      {!callEnded && callAccepted ?  <Button className="leave-button" onClick={leaveCall}>
           Leave Call
-      </Button>}
+      </Button> : null}
     </div> 
   );
 }
