@@ -11,6 +11,7 @@ body {
   flex-direction: row;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 
 .room {
@@ -23,7 +24,8 @@ body {
 .video-container {
   display: flex;
   flex-direction: row;
-  margin-top: 25px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .video-user{
@@ -67,6 +69,7 @@ button.muteAudio {
     flex-direction: column;
     background: #DDD5D5;
     padding: 20px;
+    height: 260px;
   }
   
 .form .custom-button {
@@ -112,9 +115,76 @@ button.muteAudio {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.521);
+    margin-bottom: 20px;
+    border-radius: 7px;
   }
   
   .room-header .room-id{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
+    margin-left: 20px;
   } 
+
+#stream{
+  margin: auto;
+  border-radius: 7px;
+}
+#myname-tag{
+  width: 100%;
+  background-color: #E8DCB9;
+  color: black;
+  border-radius: 7px;
+  text-align: center;
+  margin-bottom: 5px;
+  height: 30px;
+}
+
+#myname-tag .name-tag{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#othername-tag{
+  width: 100%;
+  background-color: #C3DBC5;
+  color: black;
+  border-radius: 7px;
+  text-align: center;
+  margin-bottom: 5px;
+  height: 30px;
+}
+
+#othername-tag .name-tag{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.incoming-call{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 50px;
+  padding: 7px;
+  width: 720px;
+  text-align: center;
+}
+
+#calling-text{
+  font-size: 20px;
+  margin-left: auto;
+}
+
+#accept{
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+#decline{
+  border-radius: 50px;
+  margin-right: auto;
+}

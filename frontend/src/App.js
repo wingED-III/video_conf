@@ -142,7 +142,7 @@ function App() {
     <div className="top-down">
       <img src={Logo} className={roomId!==""?"logo-calling":"logo-main"}/>
       { roomId!=="" && 
-      <div className="room-header" id="room-id">
+      <div className="room-header">
         <Typography className="room-id">
           Room ID: {roomId}   
         </Typography>
@@ -155,13 +155,17 @@ function App() {
       <div className="container">
       <div className="video-container">
         <div className="video">
-          <Typography variant='h5'style={{color:'#635a56'}}>{name!==""?name:'Me'}</Typography>
-          {stream && <video playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
+          <div id="myname-tag">
+            <Typography className="name-tag">{name!==""?name:'Me'}</Typography>
+          </div>
+          {stream && <video id="stream" playsInline muted ref={myVideo} autoPlay style={{width: "350px"}}/>}
         </div>
         {callAccepted && !callEnded ? 
         <div className="video-user">
-          <Typography variant='h5' style={{color:'#635a56'}}>{othername!==""?othername:"Unknown User"}</Typography>
-            <video playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>
+          <div id="othername-tag">
+            <Typography className="name-tag">{othername!==""?othername:"Unknown User"}</Typography>
+            </div>
+          <video id="stream" playsInline ref={userVideo} autoPlay style={{width:"350px"}}/>
         </div> : null}
       </div>
       {!(callAccepted && !callEnded) &&
@@ -184,15 +188,15 @@ function App() {
           </form>
         </div>}
       </div>
-      {receivingCall && !callAccepted &&!callEnded ? 
-      <div className="room-header" style={{marginTop:'25px'}}>
-        <Typography className="room-id">
+      {receivingCall && !callAccepted &&!callEnded ?
+      <div className="incoming-call">
+        <Typography id="calling-text">
           {othername!==""?othername:"Unknown User"} is Calling ...     
         </Typography>
-          <Button variant="contained" style={{color:'white', backgroundColor:'#79C978'}} onClick={answerCall}>
+          <Button variant="contained" id="accept" style={{color:'white', backgroundColor:'#79C978'}} onClick={answerCall}>
             <CallIcon />
           </Button>
-          <Button variant="contained" style={{color:'white', backgroundColor:'#E83B3B'}} onClick={leaveCall}>
+          <Button variant="contained" id="decline" style={{color:'white', backgroundColor:'#E83B3B'}} onClick={leaveCall}>
             <CallEndIcon />
           </Button>
       </div> : null }
