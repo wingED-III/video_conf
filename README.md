@@ -15,3 +15,18 @@ To run frontend
 cd frontend
 npm start
 ```
+
+***
+
+## Docker
+**Run from docker container**
+
+$ docker-compose up
+
+**Stop running**
+
+$ docker-compose down
+
+**Accessing web application**
+
+http://localhost:3000
